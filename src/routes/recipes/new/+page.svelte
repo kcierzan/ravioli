@@ -1,7 +1,8 @@
 <script lang="ts">
-  import type { RecordModel } from "pocketbase";
-  import Ingredients from "./Ingredients.svelte";
-  import PreparationSteps from "./PreparationSteps.svelte";
+  import type { RecordModel } from 'pocketbase';
+  import Ingredients from './Ingredients.svelte';
+  import PreparationSteps from './PreparationSteps.svelte';
+  import CookingSteps from './CookingSteps.svelte';
 
   interface NewRecipeProps {
     data: {
@@ -18,7 +19,7 @@
 <h1 class="text-3xl font-bold mb-8">Add a recipe</h1>
 
 <form method="POST" class="card">
-  <div class="flex form-control gap-y-2 mb-2">
+  <div class="flex form-control">
     <input type="text" name="name" placeholder="Name" class="input input-bordered" />
     <label for="style" class="label">Style</label>
     <select id="style" name="style" class="select" multiple>
@@ -42,7 +43,10 @@
       <input type="number" name="serving-size" placeholder="Serves" class="input input-bordered" />
     </div>
   </div>
-  <Ingredients {units} {provisions} />
-  <PreparationSteps />
-  <button class="btn btn-primary">Submit</button>
+  <div class="flex flex-col gap-y-2">
+    <Ingredients {units} {provisions} />
+    <PreparationSteps />
+    <CookingSteps />
+    <button class="btn btn-primary">Submit</button>
+  </div>
 </form>

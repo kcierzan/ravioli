@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { Set } from "svelte/reactivity";
-  import CompletionInput from "./CompletionInput.svelte";
-  import type { RecordModel } from "pocketbase";
+  import { Set } from 'svelte/reactivity';
+  import CompletionInput from './CompletionInput.svelte';
+  import type { RecordModel } from 'pocketbase';
 
   interface IngredientsFormProps {
     units: RecordModel[];
@@ -23,12 +23,12 @@
   }
 </script>
 
-<div class="flex flex-col gap-y-2 gap-x mb-2">
+<div class="flex flex-col gap-y-2 gap-x">
   <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
   {#each recipeIngredients.values() as id, index (id)}
     <div class="flex gap-x-2">
       <CompletionInput
-        name="provision"
+        name="ingredient"
         {index}
         placeholder="Ingredient"
         completions={provisions}
@@ -42,16 +42,18 @@
         min="0"
         class="input input-bordered w-1/6"
       />
-<!--      <CompletionInput-->
-<!--        name={`ingredient-unit-${index}`}-->
-<!--        placeholder="Unit"-->
-<!--        completions={units.map((unit) => unit.name)}-->
-<!--        styles="w-1/6"-->
-<!--      />-->
+      <CompletionInput
+        name="unit"
+        {index}
+        placeholder="Unit"
+        completions={units}
+        searchKey="name"
+      />
       <button class="btn btn-secondary" onclick={(e) => removeIngredient(e, id)}
-        >Remove ingredient</button
+      >Remove ingredient
+      </button
       >
     </div>
   {/each}
 </div>
-<button onclick={addIngredient} class="btn btn-secondary">Add an ingredient</button>
+<button onclick={addIngredient} class="btn btn-secondary w-full">Add an ingredient</button>

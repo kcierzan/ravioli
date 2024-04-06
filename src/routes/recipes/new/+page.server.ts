@@ -28,7 +28,7 @@ function collectPrefixedFormValues<T>(
       .reduce((acc, [key, value]) => {
         if (!key.startsWith(prefix)) return acc;
 
-        const [_, property, index] = key.split('-');
+        const [, property, index] = key.split('-');
 
         if (acc.has(index)) {
           acc.set(index, { ...acc.get(index), [property]: value } as T);
@@ -45,14 +45,13 @@ export const actions = {
   default: async ({ request }) => {
     const formData = await request.formData();
 
-    console.log('foo');
     for (const [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
     }
 
     const ingredients = collectPrefixedFormValues(
       formData,
-      'ingredients',
+      'ingredient',
       new Map<string, Ingredient>()
     );
     const recipe = {
@@ -63,5 +62,6 @@ export const actions = {
       servingSize: formData.get('serving-size'),
       ingredients
     };
+    console.log(JSON.stringify(recipe));
   }
 };
